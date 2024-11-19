@@ -7,7 +7,7 @@ augroup BufferHistory
   au!
 
   autocmd BufWinEnter * call buffer_history#add(winbufnr(0))
-  autocmd BufWipeout * call buffer_history#remove(bufnr('<afile>'))
+" autocmd BufWipeout * call buffer_history#remove(bufnr('<afile>'))
 augroup END
 
 command! BufferHistoryList call buffer_history#list()
