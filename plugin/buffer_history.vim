@@ -11,6 +11,7 @@ augroup BufferHistory
 augroup END
 
 command! BufferHistoryList call buffer_history#list()
+command! BufferHistorySwitch call buffer_history#switch()
 command! -count=1 BufferHistoryBack call buffer_history#jump()
 command! -count=1 BufferHistoryForward call buffer_history#jump(1)
 

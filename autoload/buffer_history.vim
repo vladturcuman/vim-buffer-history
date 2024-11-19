@@ -11,6 +11,7 @@ function! buffer_history#add(bufnr) abort "{{{1
   let bufinfo = getbufinfo(a:bufnr)[0]
   if !bufinfo['listed'] || empty(trim(bufname(a:bufnr))) | return | endif
 
+  let w:buffer_history_last_jump_direction = 1
   let index = w:buffer_history_index + 1
   if bufexists(a:bufnr)
     let bindex = index(w:buffer_history, a:bufnr)
@@ -55,6 +56,17 @@ function! buffer_history#jump(...) abort "{{{1
     endif
   endif
   echo 'Reached' (dirn > 0 ? 'end' : 'start') 'of buffer history'
+endfunction
+
+
+function! buffer_history#switch() abort "{{{1
+  if !exists('w:buffer_history') | return | endif
+
+  if !exists('w:buffer_history_last_jump_direction')
+    let w:buffer_history_last_jump_direction = 1
+  endif
+  call buffer_history#jump(w:buffer_history_last_jump_direction * -1)
+  let w:buffer_history_last_jump_direction *= -1
 endfunction
 
 function! buffer_history#list() abort "{{{1
